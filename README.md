@@ -133,7 +133,7 @@ paniolo               cowboy-angloamericano    charro
 **Silvana Guardia** · creadora de **SilviData**
 
 <!-- Reemplaza los # por tus links -->
-[YouTube](#) · [Instagram](#) · [TikTok](#) · [LinkedIn](#)
+[YouTube](https://www.youtube.com/silvidata/) · [Instagram](https://www.instagram.com/silvidata/) · [TikTok](https://www.tiktok.com/@silvidata) · [LinkedIn](https://www.linkedin.com/company/silvidata)
 
 ---
 
