@@ -288,7 +288,7 @@ h1, h2, p, dl, dd, figure, ol { margin: 0; padding: 0; }
 .modal__text::-webkit-scrollbar-thumb, .modal__body::-webkit-scrollbar-thumb { background: var(--map-ink); border-radius: 8px; }
 .modal__text::-webkit-scrollbar-thumb:hover, .modal__body::-webkit-scrollbar-thumb:hover { background: var(--ink); }
 
-.modal__head { display: flex; gap: 16px; align-items: center; margin-bottom: 22px; padding-right: 24px; }
+.modal__head { display: flex; gap: 16px; align-items: center; margin-bottom: 22px; padding-right: 150px; }
 .modal h2 {
   font-family: var(--serif); font-weight: 700; font-size: 32px; line-height: 1.05;
   text-transform: uppercase; color: var(--ink); margin: 4px 0 4px;
@@ -364,5 +364,32 @@ h1, h2, p, dl, dd, figure, ol { margin: 0; padding: 0; }
   *, .rail { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
 }
 
-/* contenedor de íconos SVG (oculto) */
+/* contenedor de íconos */
 .icon-sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/*=============== MODAL NAVIGATION ===============*/
+.modal__nav {
+  position: absolute; top: 12px; right: 56px; z-index: 3;
+  display: flex; align-items: center; gap: 6px;
+}
+.modal__arrow {
+  width: 34px; height: 34px; border-radius: 50%;
+  border: 1px solid var(--ink-faint);
+  background: var(--paper); color: var(--ink);
+  font: 24px/1 var(--serif); padding-bottom: 3px; cursor: pointer;
+  transition: background .3s, transform .3s;
+}
+.modal__arrow:hover { background: var(--paper-card); transform: scale(1.08); }
+.modal__arrow:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.modal__count {
+  min-width: 52px; text-align: center;
+  font-family: var(--label); font-size: 12px; letter-spacing: .1em; color: var(--ink-soft);
+}
+
+/* Modal navigation */
+@media (max-width: 640px) {
+  .modal__head { padding-right: 0; }
+  .modal__nav { top: 10px; left: 12px; right: auto; }
+  .modal__nav, .modal__close { background: rgba(241, 224, 200, .9); border-radius: 20px; }
+  .modal__close { padding: 0 8px; }
+}
