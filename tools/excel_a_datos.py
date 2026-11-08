@@ -1,14 +1,6 @@
 """
 Excel → data/vaqueros.js
 ------------------------------------------------------------------
-Convierte la hoja "Data" del Excel en el archivo de datos que lee la web.
-Flujo de trabajo: editas el Excel → corres este script → recargas la página.
-
-    pip install openpyxl
-    python tools/excel_a_datos.py Dataset_Completo_Vaqueros.xlsx
-
-Se genera un .js (y no un .json) para que la página funcione con doble clic,
-sin servidor: los navegadores bloquean fetch() de archivos locales.
 """
 import json, re, sys, unicodedata
 from pathlib import Path
@@ -17,7 +9,6 @@ import openpyxl
 EXCEL = Path(sys.argv[1] if len(sys.argv) > 1 else "Dataset_Completo_Vaqueros.xlsx")
 SALIDA = Path(__file__).resolve().parent.parent / "data" / "vaqueros.js"
 
-# Columna del Excel → nombre del campo en JS (corto y sin tildes, fácil de escribir)
 COLUMNAS = {
     "#": "n",
     "Nombre Tradicional": "nombre",
@@ -53,8 +44,7 @@ COLUMNAS = {
     "Tooltip": "tooltip",
 }
 
-# País (como está en el Excel) → siluetas del mapa (código ISO numérico de cada país).
-# "840:conus" = EE.UU. continental · "840:hawaii" = solo las islas de Hawái
+
 MAPAS = {
     "Península Ibérica": ["724", "620"],
     "España": ["724"],
@@ -113,7 +103,6 @@ def main():
         r["n"] = int(float(r["n"])) if r["n"] else len(registros) + 1
         r["id"] = slug(r["nombre"])
 
-        # --- Campos derivados (los arma el script, no están tal cual en el Excel) ---
         prendas = [r[k] for k in ("sombrero", "chaqueta", "camisa", "pantalon",
                                    "chaparreras", "calzado", "faja")
                    if r[k].lower() not in VACIOS]
@@ -121,7 +110,6 @@ def main():
         r["indumentaria_corta"] = enumerar([sin_parentesis(p) for p in prendas])  # tarjeta
         r["caballo_corto"] = sin_parentesis(r["caballo"]) + "."
         r["region_corta"] = r["region"] + ("" if r["region"].endswith(".") else ".")
-        # "Uso" = aperos de trabajo: montura, lazo y espuelas
         r["uso"] = " · ".join(f"{k}: {v[0].lower() + v[1:]}" for k, v in
                               (("Montura", r["montura"]), ("Lazo", r["lazo"]), ("Espuelas", r["espuelas"]))
                               if v.lower() not in VACIOS)
