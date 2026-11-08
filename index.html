@@ -116,6 +116,11 @@
        Para agregar un dato: copia una fila <div>…</div> y cambia el ícono,
        la etiqueta y el data-field (el nombre del campo en data/vaqueros.js). -->
   <dialog class="modal" id="modal" aria-labelledby="modal-title">
+    <div class="modal__nav">
+      <button class="modal__arrow" type="button" data-dir="-1" aria-label="Vaquero anterior">&#8249;</button>
+      <span class="modal__count" aria-live="polite"></span>
+      <button class="modal__arrow" type="button" data-dir="1" aria-label="Vaquero siguiente">&#8250;</button>
+    </div>
     <button class="modal__close" type="button" aria-label="Cerrar">×</button>
     <div class="modal__body">
       <div class="modal__media">
