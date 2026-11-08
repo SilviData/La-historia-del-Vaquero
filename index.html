@@ -3,14 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Seguridad: el navegador solo carga recursos de estos orígenes -->
+  <!-- Seguridad -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src https://cdn.jsdelivr.net; object-src 'none'; base-uri 'self'; form-action 'none'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <title>Del Vaquero al Chalán</title>
+  <title>La gran tradición ecuestre</title>
   <meta name="description" content="Infografía interactiva: 24 tradiciones ecuestres iberoamericanas, de la península ibérica a América.">
 
-  <!-- Tipografías: serif editorial (títulos), sans geométrica (etiquetas),
-       sans humanista (cuerpo) y manuscrita (lema) -->
+  <!-- Tipografías -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Jost:wght@400;500&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Nunito+Sans:ital,opsz,wght@0,6..12,400;1,6..12,400&display=swap" rel="stylesheet">
@@ -19,7 +18,7 @@
 </head>
 <body>
 
-  <!-- ============ ÍCONOS DE LÍNEA (se usan con <svg><use href="#i-..."/></svg>) ============ -->
+  <!-- ============ ÍCONOS DE LÍNEA ============ -->
   <svg class="icon-sprite" width="0" height="0" aria-hidden="true">
     <defs>
       <symbol id="i-epoca" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/></symbol>
@@ -34,7 +33,6 @@
       <symbol id="i-caballo" viewBox="0 0 24 24"><path d="M6.5 20V11a5.5 5.5 0 0 1 11 0v9M6.5 20H9M17.5 20H15"/><circle cx="8.6" cy="13" r=".6"/><circle cx="15.4" cy="13" r=".6"/><circle cx="9.6" cy="9" r=".6"/><circle cx="14.4" cy="9" r=".6"/></symbol>
       <symbol id="i-hito" viewBox="0 0 24 24"><circle cx="12" cy="9" r="5.5"/><path d="M12 6.5l.8 1.7 1.8.2-1.3 1.2.4 1.8-1.7-.9-1.7.9.4-1.8-1.3-1.2 1.8-.2zM8.5 13.5L7 21l5-2.5 5 2.5-1.5-7.5"/></symbol>
       <symbol id="i-fuente" viewBox="0 0 24 24"><path d="M4 5.5c2.5-1.2 5.5-1.2 8 .5 2.5-1.7 5.5-1.7 8-.5v13c-2.5-1.2-5.5-1.2-8 .5-2.5-1.7-5.5-1.7-8-.5zM12 6v13"/></symbol>
-      <!-- ícono de mapa genérico: se reemplaza por la silueta del país al cargar -->
       <symbol id="i-mapa" viewBox="0 0 24 24"><path d="M3 6.5l5.5-2 7 2.5 5.5-2v13l-5.5 2-7-2.5-5.5 2zM8.5 4.5v13M15.5 7v13"/></symbol>
     </defs>
   </svg>
@@ -92,8 +90,7 @@
     </footer>
   </main>
 
-  <!-- ============ PLANTILLA DE TARJETA ============
-       Cada etiqueta con data-field="X" se rellena con el campo X del vaquero. -->
+  <!-- ============ PLANTILLA DE TARJETA ============ -->
   <template id="card-tpl">
     <li class="card">
       <button class="card__hit" type="button"></button>
@@ -112,15 +109,13 @@
     </li>
   </template>
 
-  <!-- ============ VENTANA EMERGENTE ============
-       Para agregar un dato: copia una fila <div>…</div> y cambia el ícono,
-       la etiqueta y el data-field (el nombre del campo en data/vaqueros.js). -->
+  <!-- ============ VENTANA EMERGENTE ============-->
   <dialog class="modal" id="modal" aria-labelledby="modal-title">
     <div class="modal__nav">
       <button class="modal__arrow" type="button" data-dir="-1" aria-label="Vaquero anterior">&#8249;</button>
       <span class="modal__count" aria-live="polite"></span>
       <button class="modal__arrow" type="button" data-dir="1" aria-label="Vaquero siguiente">&#8250;</button>
-    </div>
+    </div>    
     <button class="modal__close" type="button" aria-label="Cerrar">×</button>
     <div class="modal__body">
       <div class="modal__media">
@@ -161,3 +156,4 @@
   <script src="js/main.js"></script>
 </body>
 </html>
+
