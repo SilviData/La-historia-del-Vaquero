@@ -1,25 +1,21 @@
-# Recorta las ilustraciones de la lámina original y las "blanquea":
-# el papel pasa a blanco para que, con mix-blend-mode:multiply, se funda con el fondo de la web.
 from PIL import Image, ImageDraw
 import numpy as np, sys
 src = Image.open(sys.argv[1]).convert("RGB")
-PAPER = np.array([240, 222, 196], dtype=float)   # color medio del papel
+PAPER = np.array([240, 222, 196], dtype=float)   
 
 def norm(img):
     a = np.asarray(img).astype(float)
-    # papel estimado en el borde del recorte (donde casi siempre hay papel)
     edge = np.concatenate([a[:3].reshape(-1,3), a[-3:].reshape(-1,3), a[:, :3].reshape(-1,3), a[:, -3:].reshape(-1,3)])
     lum = edge.mean(1)
     paper = np.percentile(edge[lum > np.percentile(lum, 40)], 60, axis=0)
     a = np.clip(a / paper * 255, 0, 255)
-    # rodilla suave: lo casi blanco pasa a blanco puro → sin "cajas" visibles
     a = np.where(a > 238, 255 - (255 - a) * 0.35, a)
     a = np.clip((a - 0) * 1.0, 0, 255)
     return Image.fromarray(a.astype("uint8"))
 
 def save(name, box, fill=None):
     im = norm(src.crop(box))
-    if fill:  # borra el texto pintado (va como texto real en HTML) con inpainting
+    if fill:  
         import cv2
         a = np.asarray(im).copy()
         mask = np.zeros(a.shape[:2], np.uint8)
@@ -35,13 +31,13 @@ ids  = ["iberico","andaluz","charro","chalan","gaucho","cowboy","llanero"]
 for i,(x1,x2) in zip(ids, cols):
     save(f"rider-{i}", (x1, 268, x2, 644))
     save(f"horse-{i}", (x1+20, 793, x2-20, 897))
-# Cabecera
+
 save("map", (592, 14, 1032, 198), fill=[(366, 22, 440, 84)])
 save("compass", (1056, 84, 1138, 180))
 save("hat", (458, 130, 584, 178))
 save("vignette", (1174, 12, 1516, 200))
 save("leaf", (22, 218, 62, 278))
-# Iconos de datos
+
 save("ic-clock", (33, 647, 63, 675))
 save("ic-hat", (31, 686, 67, 710))
 save("ic-horse", (33, 747, 65, 779))
