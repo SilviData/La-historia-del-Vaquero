@@ -1,15 +1,10 @@
-/* ==========================================================================
-   Del Vaquero al Chalán — estilos
-   Medidas tomadas de la lámina original (1536 × 1024 px).
-   ========================================================================== */
 
-/* ---------- 1. Tokens ---------- */
 :root {
-  --paper:       #F1E0C8;   /* papel envejecido */
-  --paper-card:  #ECD8BD;   /* papel de las columnas, un tono más oscuro */
-  --ink:         #2C1D18;   /* marrón tinta: títulos */
-  --ink-soft:    #4A3A30;   /* cuerpo de texto */
-  --ink-faint:   rgba(62, 39, 35, .35); /* filetes y bordes */
+  --paper:       #F1E0C8;  
+  --paper-card:  #ECD8BD;   
+  --ink:         #2C1D18;  
+  --ink-soft:    #4A3A30;  
+  --ink-faint:   rgba(62, 39, 35, .35);
   --shadow:      0 14px 30px -14px rgba(62, 39, 35, .45);
 
   --serif:  "Libre Caslon Text", Georgia, serif;
@@ -18,18 +13,17 @@
   --hand:   "Caveat", cursive;
 
   --card-w: 206px;
-  --map-ink:   #6B4430;   /* siluetas e íconos de línea */
+  --map-ink:   #6B4430;  
   --gap:    15px;
 }
 
-/* ---------- 2. Base ---------- */
+/* ---------- Base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; }
 body {
   color: var(--ink-soft);
   font-family: var(--body);
   background-color: var(--paper);
-  /* textura de papel: manchas suaves + grano */
   background-image:
     radial-gradient(ellipse at 15% 10%, rgba(255, 250, 240, .55), transparent 55%),
     radial-gradient(ellipse at 85% 90%, rgba(170, 120, 70, .12), transparent 60%),
@@ -39,8 +33,6 @@ body {
 img { display: block; max-width: 100%; height: auto; }
 h1, h2, p, dl, dd, figure, ol { margin: 0; padding: 0; }
 
-/* Las ilustraciones vienen con el papel "blanqueado": multiply las funde
-   con el fondo y conserva la textura de acuarela original. */
 .ink { mix-blend-mode: multiply; }
 
 .sheet {
@@ -49,7 +41,7 @@ h1, h2, p, dl, dd, figure, ol { margin: 0; padding: 0; }
   padding: 12px 18px 16px;
 }
 
-/* ---------- 3. Cabecera ---------- */
+/* ---------- Cabecera ---------- */
 .masthead {
   position: relative;
   display: grid;
@@ -61,7 +53,7 @@ h1, h2, p, dl, dd, figure, ol { margin: 0; padding: 0; }
   outline-offset: 3px;
   margin: 4px 4px 14px;
 }
-/* esquinas tipo grabado */
+
 .masthead::before, .masthead::after {
   content: ""; position: absolute; width: 14px; height: 14px;
   border: 1px solid var(--ink-faint); border-radius: 50%;
@@ -106,7 +98,6 @@ h1, h2, p, dl, dd, figure, ol { margin: 0; padding: 0; }
   margin-bottom: 14px;
 }
 
-/* El bloque del mapa escala como una unidad: todo se posiciona en % */
 .masthead__map {
   position: relative; container-type: inline-size;
   width: 100%; max-width: 560px; aspect-ratio: 560 / 184; align-self: center;
@@ -123,10 +114,9 @@ h1, h2, p, dl, dd, figure, ol { margin: 0; padding: 0; }
 .masthead__vignette { border-left: 1px solid var(--ink-faint); align-self: stretch; display: flex; align-items: center; }
 .masthead__vignette img { width: 342px; }
 
-/* ---------- 4. Columnas (carril con scroll horizontal) ---------- */
+/* ---------- Columnas scroll horizonta ---------- */
 .traditions {
   position: relative;
-  /* medidas compartidas: la flecha se centra con la ilustración usando estas variables */
   --rail-pad: 8px;
   --head-h: 74px;
   --rider-h: 376px;
@@ -163,7 +153,7 @@ h1, h2, p, dl, dd, figure, ol { margin: 0; padding: 0; }
   transform: translateY(-4px);
   box-shadow: 0 0 0 1px rgba(62, 39, 35, .12), var(--shadow);
 }
-/* botón invisible que cubre la tarjeta: toda la columna es clicable y accesible */
+
 .card__hit {
   position: absolute; inset: 0; z-index: 2;
   background: none; border: 0; cursor: pointer;
@@ -193,13 +183,13 @@ h1, h2, p, dl, dd, figure, ol { margin: 0; padding: 0; }
 }
 .card .facts dd {
   display: -webkit-box;
-  -webkit-line-clamp: 2;          /* ← máximo de líneas por dato */
+  -webkit-line-clamp: 2;          
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
 
-/* Ilustración del jinete (o aviso si falta el archivo) */
+/* Ilustración */
 .rider { width: 100%; height: var(--rider-h); flex: 0 0 auto; overflow: hidden; }
 .rider > img { width: 100%; height: 100%; object-fit: cover; object-position: top center; transition: transform .5s; }
 .card:hover .rider > img { transform: scale(1.015); }
@@ -214,7 +204,6 @@ h1, h2, p, dl, dd, figure, ol { margin: 0; padding: 0; }
 .rider.is-missing > img { width: 64px; height: auto; flex: 0 0 auto; opacity: .55; }
 .rider.is-missing code { font-size: 10px; letter-spacing: 0; text-transform: none; opacity: .75; padding: 0 8px; word-break: break-all; }
 
-/* Datos con íconos: reloj · mapa · vestimenta · caballo */
 .facts { width: 100%; padding: 10px 12px 0 14px; display: grid; gap: 9px; align-content: start; }
 .facts > div { display: grid; grid-template-columns: 34px 1fr; gap: 6px; align-items: start; }
 .facts > div[hidden] { display: none; }
@@ -223,7 +212,7 @@ h1, h2, p, dl, dd, figure, ol { margin: 0; padding: 0; }
 .facts dd { font-size: 13px; line-height: 1.45; color: var(--ink-soft); padding-top: 2px; }
 .facts > div:first-child dd { padding-top: 4px; font-family: var(--label); letter-spacing: .03em; }
 
-/* Ícono de mapa: genérico (línea) hasta que carga la silueta del país */
+/* Ícono de mapa */
 .map-icon {
   width: 30px; height: 30px;
   fill: none; stroke: var(--map-ink); stroke-width: 1.5; stroke-linejoin: round;
@@ -231,7 +220,7 @@ h1, h2, p, dl, dd, figure, ol { margin: 0; padding: 0; }
 .map-icon.is-country { fill: var(--map-ink); stroke: none; opacity: .92; }
 .map-icon--big { width: 64px; height: 64px; flex: 0 0 64px; }
 
-/* Flechas de navegación: encima de las tarjetas y centradas con la ilustración */
+/* Flechas de navegación */
 .rail-btn {
   position: absolute; z-index: 20;
   top: calc(var(--rail-pad) + var(--head-h) + var(--rider-h) / 2);
@@ -247,7 +236,7 @@ h1, h2, p, dl, dd, figure, ol { margin: 0; padding: 0; }
 .rail-btn--prev { left: 10px; }
 .rail-btn--next { right: 10px; }
 
-/* ---------- 5. Pie ---------- */
+/* ---------- Pie ---------- */
 .foot {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -264,14 +253,14 @@ h1, h2, p, dl, dd, figure, ol { margin: 0; padding: 0; }
   border-top: 1px solid var(--ink-faint); border-bottom: 1px solid var(--ink-faint);
   padding: 20px 26px;
 }
-/* flechita grabada */
+
 .arrow { width: 40px; height: 1px; background: var(--ink-faint); position: relative; }
 .arrow::after {
   content: ""; position: absolute; right: -2px; top: -3px;
   border: 4px solid transparent; border-left: 7px solid var(--ink-faint);
 }
 
-/* ---------- 6. Ventana emergente ---------- */
+/* ---------- Ventana emergente ---------- */
 .modal {
   width: min(940px, 94vw);
   max-height: 90vh;
@@ -339,7 +328,7 @@ h1, h2, p, dl, dd, figure, ol { margin: 0; padding: 0; }
 }
 @keyframes rise { from { opacity: 0; transform: translateY(14px); } }
 
-/* ---------- 7. Responsive ---------- */
+/* ---------- Responsive ---------- */
 @media (max-width: 1280px) {
   .masthead { grid-template-columns: 360px 180px 1fr; }
   .masthead__vignette { display: none; }
