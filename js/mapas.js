@@ -1,20 +1,10 @@
-/* ==========================================================================
-   Siluetas de países (el ícono de mapa de cada tarjeta)
-   --------------------------------------------------------------------------
-   Descarga una sola vez el mapa mundial de Natural Earth (world-atlas, TopoJSON)
-   y dibuja la silueta de los países que pide cada vaquero (campo "mapa").
-   Sin librerías: el TopoJSON se decodifica y proyecta (Mercator) aquí mismo.
-   Si no hay internet, se queda el ícono de mapa genérico.
 
-   Uso:  Mapas.dibujar(elementoSVG, ["604"])        → Perú
-         Mapas.dibujar(elementoSVG, ["840:hawaii"]) → solo Hawái
-   ========================================================================== */
 window.Mapas = (() => {
   "use strict";
 
   const URL_MUNDO = "https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-50m.json";
-  let mundo = null;          // promesa con el TopoJSON (se pide una sola vez)
-  const cache = new Map();   // clave → path SVG ya calculado
+  let mundo = null;         
+  const cache = new Map();  
 
   const cargar = () => (mundo ??= fetch(URL_MUNDO).then(r => {
     if (!r.ok) throw new Error("mapa no disponible");
@@ -35,7 +25,7 @@ window.Mapas = (() => {
     indices.forEach((i, k) => {
       let a = arcos[i < 0 ? ~i : i];
       if (i < 0) a = a.slice().reverse();
-      pts.push(...(k ? a.slice(1) : a));   // cada arco comparte su primer punto con el anterior
+      pts.push(...(k ? a.slice(1) : a));  
     });
     return pts;
   }
@@ -57,7 +47,7 @@ window.Mapas = (() => {
 
   const centro = r => r.reduce(([a, b], [x, y]) => [a + x / r.length, b + y / r.length], [0, 0]);
 
-  /* Filtros especiales: EE.UU. sin Alaska ni Hawái, o solo Hawái */
+  /* Filtros especiales*/
   const FILTROS = {
     conus:  ([lon, lat]) => lon > -130 && lat < 50,
     hawaii: ([lon, lat]) => lon < -150 && lat < 25,
@@ -74,7 +64,6 @@ window.Mapas = (() => {
       if (!g) return;
       let polis = poligonosDe(g, arcos);
       if (filtro) polis = polis.filter(p => FILTROS[filtro](centro(p[0])));
-      // descarta islas muy pequeñas (Galápagos, Canarias…) para que la silueta se lea
       const proy = polis.map(p => p.map(r => r.map(merc)));
       const max = Math.max(...proy.map(p => area(p[0])));
       const umbral = filtro === "hawaii" ? 0.04 : 0.08;
@@ -105,7 +94,7 @@ window.Mapas = (() => {
       svg.innerHTML = `<path d="${d}" fill-rule="evenodd"/>`;
       svg.setAttribute("viewBox", "0 0 48 48");
       svg.classList.add("is-country");
-    } catch (_) { /* sin conexión: se queda el ícono genérico */ }
+    } catch (_) { /* sin conexión */ }
   }
 
   return { dibujar };
